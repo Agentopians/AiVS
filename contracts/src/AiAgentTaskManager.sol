@@ -180,7 +180,7 @@ contract AiAgentTaskManager is
         BN254.G1Point[] memory pubkeysOfNonSigningOperators
     ) external {
         uint32 referenceTaskIndex = taskResponse.referenceTaskIndex;
-        string metadataUrl = task.metadataUrl;
+        string calldata metadataUrl = task.metadataUrl;
         // some logical checks
         require(
             allTaskResponses[referenceTaskIndex] != bytes32(0),
