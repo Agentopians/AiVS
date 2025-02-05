@@ -1,2 +1,27 @@
 .DS_Store
-/node_modules/
+venv
+*.code-workspace
+node_modules/
+coverage/
+coverage.json
+.env
+
+# Foundry/Contracts
+contracts/out/
+contracts/cache/
+contracts/lib/
+contracts/broadcast/
+contracts/cache_*/
+
+# Debug files
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
