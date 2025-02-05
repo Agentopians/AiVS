@@ -41,8 +41,8 @@ export class OperatorsInfoServiceInMemory {
             logger = pino({
                 level: 'info',
                 transport: {
-					target: 'pino-pretty'
-				},
+                    target: 'pino-pretty'
+                },
             }),
         } = options;
 
@@ -61,8 +61,8 @@ export class OperatorsInfoServiceInMemory {
         // this.thread = new Thread(this._serviceThread.bind(this));
         // this.thread.start();
 
-		this._serviceThread()
-			.catch(e => {})
+        this._serviceThread()
+            .catch(e => { })
     }
 
     private static operatorIdFromG1Pubkey(g1: G1Point): string {
@@ -76,7 +76,7 @@ export class OperatorsInfoServiceInMemory {
         while (true) {
             try {
                 await this.getEvents();
-            } catch (e:any) {
+            } catch (e: any) {
                 this.logger.error(`Get event Error: ${e.message}`);
             }
             await timeout(this.checkInterval);
@@ -84,18 +84,18 @@ export class OperatorsInfoServiceInMemory {
     }
 
     private async getEvents(): Promise<void> {
-		this.logger.info(`OperatorsInfoServiceInMemory.GetEvents ...`)
-        const [ 
-			operatorAddresses, operatorPubkeys, toBlockPub 
-		 ] = await this.avsRegistryReader.queryExistingRegisteredOperatorPubkeys(
+        this.logger.info(`OperatorsInfoServiceInMemory.GetEvents ...`)
+        const [
+            operatorAddresses, operatorPubkeys, toBlockPub
+        ] = await this.avsRegistryReader.queryExistingRegisteredOperatorPubkeys(
             this.startBlockPub
         );
 
         const [
-			operatorSockets, toBlockSocket 
-		] = await this.avsRegistryReader.queryExistingRegisteredOperatorSockets(this.startBlockSocket);
+            operatorSockets, toBlockSocket
+        ] = await this.avsRegistryReader.queryExistingRegisteredOperatorSockets(this.startBlockSocket);
 
-		for (let i = 0; i < operatorAddresses.length; i++) {
+        for (let i = 0; i < operatorAddresses.length; i++) {
             const operatorAddr = operatorAddresses[i];
             const operatorPubkey = operatorPubkeys[i];
             const operatorId = OperatorsInfoServiceInMemory.operatorIdFromG1Pubkey(operatorPubkey.g1PubKey);

@@ -1,9 +1,8 @@
 import { ethers } from "ethers";
-import {eth as Web3Eth} from 'web3'
+import { eth as Web3Eth } from 'web3'
 import * as mcl from 'mcl-wasm'
 import * as bn254Utils from "../bn254/utils"
-const fs = require('fs').promises;
-
+import fs from 'fs/promises'
 export async function init() {
 	await mcl.init(mcl.BN_SNARK1);
 }
@@ -26,15 +25,15 @@ export function newFp2Element(a: bigint, b: bigint): mcl.Fp2 {
 	return p;
 }
 
-export class G1Point extends mcl.G1{
+export class G1Point extends mcl.G1 {
 
 	constructor(x: bigint, y: bigint) {
 		super()
-		if(x != undefined) {
+		if (x != undefined) {
 			this.setX(newFpElement(x));
 			this.setY(newFpElement(y));
 			this.setZ(newFpElement(1n));
-			if(x===0n && y===0n)
+			if (x === 0n && y === 0n)
 				this.clear()
 		}
 	}
@@ -74,11 +73,11 @@ export function newZeroG1Point(): G1Point {
 export class G2Point extends mcl.G2 {
 	constructor(xa: bigint, xb: bigint, ya: bigint, yb: bigint) {
 		super()
-		if(xa != undefined) {
+		if (xa != undefined) {
 			this.setX(newFp2Element(xa, xb))
 			this.setY(newFp2Element(ya, yb))
 			this.setZ(newFp2Element(1n, 0n))
-			if(xa===0n && xb===0n && ya===0n && yb===0n)
+			if (xa === 0n && xb === 0n && ya === 0n && yb === 0n)
 				this.clear()
 		}
 	}
@@ -103,7 +102,7 @@ export class G2Point extends mcl.G2 {
 	}
 }
 
-export function newG2Point(xa: bigint, xb:bigint, ya: bigint, yb:bigint): G2Point {
+export function newG2Point(xa: bigint, xb: bigint, ya: bigint, yb: bigint): G2Point {
 	return new G2Point(xa, xb, ya, yb);
 }
 
@@ -124,7 +123,7 @@ export class Signature extends G1Point {
 		}
 	}
 
-	fromJson(s:{x: string, y: string}): Signature {
+	fromJson(s: { x: string, y: string }): Signature {
 		return new Signature(
 			BigInt(s.x),
 			BigInt(s.y),
@@ -151,9 +150,9 @@ export function newZereSignature() {
 }
 
 export class PrivateKey extends mcl.Fr {
-	constructor(secret?: string, base:number=16) {
+	constructor(secret?: string, base: number = 16) {
 		super()
-		if(secret)
+		if (secret)
 			this.setStr(secret, base)
 		else
 			this.setStr(`${bn254Utils.random()}`, 10)
@@ -164,12 +163,12 @@ export class PrivateKey extends mcl.Fr {
 	}
 }
 
-export function newPrivateKey(sk: string, base:number=16): PrivateKey {
+export function newPrivateKey(sk: string, base: number = 16): PrivateKey {
 	return new PrivateKey(sk, base)
 }
 
 export class KeyPair {
-	privKey:PrivateKey;
+	privKey: PrivateKey;
 	pubG1: G1Point;
 	pubG2: G2Point;
 
@@ -180,7 +179,7 @@ export class KeyPair {
 		this.pubG2 = G2Point.fromStr(bn254Utils.mulByGeneratorG2(this.privKey).getStr())
 	}
 
-	static fromString(secret:string, base:number=16):KeyPair {
+	static fromString(secret: string, base: number = 16): KeyPair {
 		const pk = new PrivateKey(secret, base)
 		return new KeyPair(pk);
 	}
@@ -206,7 +205,7 @@ export class KeyPair {
 		if (!keystoreJson.address)
 			keystoreJson.id = "00000000-0000-0000-0000-000000000000"
 
-		if (!keystoreJson.address) 
+		if (!keystoreJson.address)
 			keystoreJson.address = "0x0000000000000000000000000000000000000000"
 
 		let keystoreAccount = await Web3Eth.accounts.decrypt(keystoreJson, password)
@@ -237,7 +236,7 @@ export function newKeyPair(privKey: PrivateKey): KeyPair {
 	return new KeyPair(privKey)
 }
 
-export function newKeyPairFromString(secret: string, base:number=16): KeyPair {
+export function newKeyPairFromString(secret: string, base: number = 16): KeyPair {
 	return KeyPair.fromString(secret, base);
 }
 

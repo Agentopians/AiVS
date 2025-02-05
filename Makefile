@@ -40,9 +40,9 @@ send-fund: ## sends fund to the operator saved in tests/keys/test.ecdsa.key.json
 # We pipe all zapper logs through https://github.com/maoueh/zap-pretty so make sure to install it
 # TODO: piping to zap-pretty only works when zapper environment is set to production, unsure why
 ____OFFCHAIN_SOFTWARE___: ## 
-start-aggregator: ## 
-	npx ts-node aggregator.ts
+start-judge: ## 
+	npm run start:judge
 
-start-operator: ## 
-	npx ts-node operator.ts
+start-juror: ## 
+	npm run start:juror
 
