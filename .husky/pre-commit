@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Run lint-staged
+npx lint-staged 
+
+# Run tests
+
+# Note: Remove the commitlint check from pre-commit
+# commitlint should be in commit-msg hook instead
