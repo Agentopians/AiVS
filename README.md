@@ -39,16 +39,16 @@ make start-anvil-chain-with-el-and-avs-deployed
 
 ### Start Services
 
-Start the aggregator:
+Start the judge:
 
 ```bash
-make start-aggregator
+make start-judge
 ```
 
-Register and start the operator:
+Register and start the juror:
 
 ```bash
-make start-operator
+make start-juror
 ```
 
 ## Available Commands
@@ -75,3 +75,14 @@ make start-operator
 3. Ensure linting passes: `make lint`
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org/) specification.
+
+## Project Architecture
+
+![Agentopians AVS Architecture](docs/agentopians_AiVS.png)
+
+This diagram illustrates the core components and interactions within our Incredible Squaring AVS:
+
+- Smart Contracts: Manages task creation and service coordination
+- Operator Service: Handles BLS signature generation and submission
+- Aggregator: Collects and verifies operator responses
+- EigenLayer Integration: Provides operator registration and staking functionality
