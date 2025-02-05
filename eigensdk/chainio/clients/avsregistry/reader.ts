@@ -1,10 +1,10 @@
 import { Address, Contract, Web3 } from 'web3';
 import {Logger} from 'pino'
-import * as ABIs from '../../../contracts/ABIs'
-import * as chainioUtils from '../../utils'
+import * as ABIs from '../../../contracts/ABIs.js'
+import * as chainioUtils from '../../utils.js'
 import { OperatorPubkeys, OperatorStateRetrieverCheckSignaturesIndices, OperatorStateRetrieverOperator } from '../../../services/avsregistry/avsregistry.js';
-import { BlockNumber, OperatorId, QuorumNum, Uint8 } from '../../../types/general';
-import { G1Point, G2Point } from '../../../crypto/bls/attestation';
+import { BlockNumber, OperatorId, QuorumNum, Uint8 } from '../../../types/general.js';
+import { G1Point, G2Point } from '../../../crypto/bls/attestation.js';
 
 const DEFAULT_QUERY_BLOCK_RANGE = 10_000
 

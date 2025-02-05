@@ -1,33 +1,35 @@
 {
-  "name": "aivs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
-  },
-  "keywords": [],
+  "name": "incredible-squaring-avs",
+  "description": "A Javascript implementation of the EigenLayer AVS",
+  "version": "0.0.1",
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.3",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
-    "prettier": "^3.4.2"
+  "main": "index.ts",
+  "directories": {
+    "test": "tests"
   },
-  "type": "module",
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "prettier --write",
-      "eslint --fix --max-warnings=0"
-    ],
-    "*.{json,md}": [
-      "prettier --write"
-    ]
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "operator": "node operator.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "eigensdk": "file:/home/sadegh/Projects/zellular/eigensdk-js",
+    "eth-lib": "^0.1.29",
+    "ethereumjs-util": "^7.1.5",
+    "ethers": "^6.13.1",
+    "express": "^4.19.2",
+    "js-yaml": "^4.1.0",
+    "mcl-wasm": "^1.5.0",
+    "pino": "^9.2.0",
+    "pino-pretty": "^11.2.1",
+    "web3": "^4.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/js-yaml": "^4.0.9",
+    "eslint": "^9.5.0",
+    "ts-node": "^10.9.2"
   }
 }
