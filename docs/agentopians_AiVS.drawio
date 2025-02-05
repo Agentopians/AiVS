@@ -1,0 +1,200 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Page-1" id="DCZvSFGiNgpJU22bjDwZ">
+    <mxGraphModel dx="1071" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="In_sAYGapWYc9GY5EZdo-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="In_sAYGapWYc9GY5EZdo-4" target="In_sAYGapWYc9GY5EZdo-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="960" y="130" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-36" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;1&lt;/font&gt;&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-19">
+          <mxGeometry x="0.0801" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-21" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="460" y="80" width="380" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-3" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-21">
+          <mxGeometry y="80" width="270" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-5" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cryptologos.cc/logos/ethereum-eth-logo.png?v=040;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-21">
+          <mxGeometry x="210" y="90" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-33" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-21">
+          <mxGeometry x="80" y="120" width="120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-32" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;AiVS&lt;/font&gt;&lt;/b&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-33">
+          <mxGeometry y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-6" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cryptologos.cc/logos/eigenlayer-eigen-logo.png?v=040;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-33">
+          <mxGeometry x="30" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-96" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;AiVS Task Response&lt;/h1&gt;&lt;p&gt;The AiVS operators will send the result and the metadata to the AiVS:&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;JSON file with metadata including a boolean (True/False) for the case validity&lt;/li&gt;&lt;li&gt;Aggregates the operators verdicts to reach consensus&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-21">
+          <mxGeometry x="120" y="310" width="260" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-26" value="" style="group;fontStyle=1;fontSize=16;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1080" y="30" width="72.73000000000002" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-4" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;User&lt;/font&gt;&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeWidth=3;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-26">
+          <mxGeometry x="11.360000000000014" y="20" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-25" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.pixabay.com/photo/2014/04/02/16/59/face-307565_1280.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-26">
+          <mxGeometry width="72.73" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="In_sAYGapWYc9GY5EZdo-1" target="In_sAYGapWYc9GY5EZdo-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-38" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;2&lt;/font&gt;&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-30">
+          <mxGeometry x="-0.4286" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-13" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://ethglobal.b-cdn.net/organizations/rpi4f/square-logo/default.png;" vertex="1" parent="1">
+          <mxGeometry x="811" y="280" width="39" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-35" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="860" y="195" width="460" height="605" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-16" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-35">
+          <mxGeometry width="270" height="605" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="90" width="180" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-12" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://ethglobal.b-cdn.net/organizations/rjvrp/square-logo/default.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="180" y="35" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-9" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://static-00.iconduck.com/assets.00/openai-icon-2021x2048-4rpe5x7n.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="220" y="10" width="29.6" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-10" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.gaianet.ai/images/logo-big.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="180" y="13.860000000000014" width="37" height="36.88" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-11" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://1000logos.net/wp-content/uploads/2025/01/DeepSeek-Emblem.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="213.13" y="40" width="53.33" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-17" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;AI Agent&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="130" y="100" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-18" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn-icons-png.flaticon.com/512/6521/6521784.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="99" y="28" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-93" value="&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22group%22%20vertex%3D%221%22%20connectable%3D%220%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%221000%22%20y%3D%22622%22%20width%3D%22130%22%20height%3D%22100%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%223%22%20value%3D%22%26lt%3Bfont%20style%3D%26quot%3Bfont-size%3A%2014px%3B%26quot%3B%26gt%3B%26lt%3Bb%26gt%3BAI%20Model%26lt%3B%2Fb%26gt%3B%26lt%3B%2Ffont%26gt%3B%22%20style%3D%22rounded%3D1%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20width%3D%22130%22%20height%3D%22100%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%224%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3Ddefault%3BverticalAlign%3Dtop%3Baspect%3Dfixed%3BimageAspect%3D0%3Bimage%3Dhttps%3A%2F%2Fstatic-00.iconduck.com%2Fassets.00%2Fopenai-icon-2021x2048-4rpe5x7n.png%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20x%3D%2290%22%20y%3D%226%22%20width%3D%2229.6%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%225%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3Ddefault%3BverticalAlign%3Dtop%3Baspect%3Dfixed%3BimageAspect%3D0%3Bimage%3Dhttps%3A%2F%2Fwww.iconpacks.net%2Ficons%2Ffree-icons-6%2Ffree-rest-api-blue-logo-icon-22098-thumb.png%3BclipPath%3Dinset(6.67%25%203%25%2012.33%25%200%25)%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20x%3D%2210%22%20y%3D%226.840000000000032%22%20width%3D%2234.92%22%20height%3D%2229.16%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-16">
+          <mxGeometry x="-400" y="345" width="480" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-22" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Intake Clerk&lt;/h1&gt;&lt;p&gt;A chat interface for the user to create the case&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;System prompt in a way that the user needs to convince the agent that they have a case&lt;/li&gt;&lt;li&gt;When the case is final, AI agent will create the formatted JSON and send the task to the AiAVS&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-35">
+          <mxGeometry x="280" width="180" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-34" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;AiVS Task&lt;/h1&gt;&lt;p&gt;The task is created using CDP AgentKit that includes:&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;JSON file with the case metadata&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="750" y="140" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-68" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Subscribe to fetch new tasks&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="430" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-55" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Jury (AiVS Operators)&lt;/h1&gt;&lt;p&gt;AiAgents that grab the case, analyze the metadata and facts and come in a conclusion of if this case is valid or not&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Use different models for fair decision making&lt;/li&gt;&lt;li&gt;Use different system prompts for ideologies, justice systems, etc&lt;br&gt;&lt;br&gt;&lt;/li&gt;&lt;li&gt;Create metadata JSON files of metadata and submit to the AiVS with the taskID&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="150" y="600" width="260" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-80" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="420" y="580" width="530" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-92" value="&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22group%22%20vertex%3D%221%22%20connectable%3D%220%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%221000%22%20y%3D%22622%22%20width%3D%22130%22%20height%3D%22100%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%223%22%20value%3D%22%26lt%3Bfont%20style%3D%26quot%3Bfont-size%3A%2014px%3B%26quot%3B%26gt%3B%26lt%3Bb%26gt%3BAI%20Model%26lt%3B%2Fb%26gt%3B%26lt%3B%2Ffont%26gt%3B%22%20style%3D%22rounded%3D1%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20width%3D%22130%22%20height%3D%22100%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%224%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3Ddefault%3BverticalAlign%3Dtop%3Baspect%3Dfixed%3BimageAspect%3D0%3Bimage%3Dhttps%3A%2F%2Fstatic-00.iconduck.com%2Fassets.00%2Fopenai-icon-2021x2048-4rpe5x7n.png%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20x%3D%2290%22%20y%3D%226%22%20width%3D%2229.6%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%225%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3Ddefault%3BverticalAlign%3Dtop%3Baspect%3Dfixed%3BimageAspect%3D0%3Bimage%3Dhttps%3A%2F%2Fwww.iconpacks.net%2Ficons%2Ffree-icons-6%2Ffree-rest-api-blue-logo-icon-22098-thumb.png%3BclipPath%3Dinset(6.67%25%203%25%2012.33%25%200%25)%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20x%3D%2210%22%20y%3D%226.840000000000032%22%20width%3D%2234.92%22%20height%3D%2229.16%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-80">
+          <mxGeometry x="20" y="-20" width="480" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-48" value="&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22group%22%20vertex%3D%221%22%20connectable%3D%220%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%221000%22%20y%3D%22622%22%20width%3D%22130%22%20height%3D%22100%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%223%22%20value%3D%22%26lt%3Bfont%20style%3D%26quot%3Bfont-size%3A%2014px%3B%26quot%3B%26gt%3B%26lt%3Bb%26gt%3BAI%20Model%26lt%3B%2Fb%26gt%3B%26lt%3B%2Ffont%26gt%3B%22%20style%3D%22rounded%3D1%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20width%3D%22130%22%20height%3D%22100%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%224%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3Ddefault%3BverticalAlign%3Dtop%3Baspect%3Dfixed%3BimageAspect%3D0%3Bimage%3Dhttps%3A%2F%2Fstatic-00.iconduck.com%2Fassets.00%2Fopenai-icon-2021x2048-4rpe5x7n.png%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20x%3D%2290%22%20y%3D%226%22%20width%3D%2229.6%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%225%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3Ddefault%3BverticalAlign%3Dtop%3Baspect%3Dfixed%3BimageAspect%3D0%3Bimage%3Dhttps%3A%2F%2Fwww.iconpacks.net%2Ficons%2Ffree-icons-6%2Ffree-rest-api-blue-logo-icon-22098-thumb.png%3BclipPath%3Dinset(6.67%25%203%25%2012.33%25%200%25)%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20x%3D%2210%22%20y%3D%226.840000000000032%22%20width%3D%2234.92%22%20height%3D%2229.16%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-80">
+          <mxGeometry width="480" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-70" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-80">
+          <mxGeometry x="40" y="57" width="150" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-2" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;AiVS Operator&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-70">
+          <mxGeometry width="150" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-69" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-70">
+          <mxGeometry x="90.00222222222214" y="7.076153846153829" width="49.99726495726509" height="38.145384615384614" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-14" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn-icons-png.flaticon.com/512/5968/5968381.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-69">
+          <mxGeometry x="24.151111111111277" width="25.846153846153847" height="25.846153846153847" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-15" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.iconpacks.net/icons/free-icons-6/free-rest-api-blue-logo-icon-22098-thumb.png;clipPath=inset(6.67% 3% 12.33% 0%);" vertex="1" parent="In_sAYGapWYc9GY5EZdo-69">
+          <mxGeometry y="9.92384615384617" width="33.79692307692308" height="28.22153846153846" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-71" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-80">
+          <mxGeometry x="250" y="32" width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-40" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;AI Model&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-71">
+          <mxGeometry width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-57" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://static-00.iconduck.com/assets.00/openai-icon-2021x2048-4rpe5x7n.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-71">
+          <mxGeometry x="90" y="6" width="29.6" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-72" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-80">
+          <mxGeometry x="270" y="70" width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-73" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;AI Model&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-72">
+          <mxGeometry width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-58" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.gaianet.ai/images/logo-big.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-72">
+          <mxGeometry x="93.3599999999999" y="10" width="27" height="26.91" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-75" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-80">
+          <mxGeometry x="300" y="110" width="160" height="142" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-76" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;AI Model&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-75">
+          <mxGeometry width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-59" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://1000logos.net/wp-content/uploads/2025/01/DeepSeek-Emblem.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-75">
+          <mxGeometry x="76.67000000000007" y="12" width="53.33" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-82" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;AI Model&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-75">
+          <mxGeometry x="30" y="42" width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-81" value="" style="group" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-75">
+          <mxGeometry x="25" y="39" width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-56" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://ethglobal.b-cdn.net/organizations/rjvrp/square-logo/default.png;" vertex="1" parent="In_sAYGapWYc9GY5EZdo-81">
+          <mxGeometry x="90" y="6.840000000000032" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-86" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;curved=1;" edge="1" parent="In_sAYGapWYc9GY5EZdo-80" source="In_sAYGapWYc9GY5EZdo-2" target="In_sAYGapWYc9GY5EZdo-40">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="87" />
+              <mxPoint x="220" y="82" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;curved=1;" edge="1" parent="In_sAYGapWYc9GY5EZdo-80" source="In_sAYGapWYc9GY5EZdo-40" target="In_sAYGapWYc9GY5EZdo-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-84" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.iconpacks.net/icons/free-icons-6/free-rest-api-blue-logo-icon-22098-thumb.png;clipPath=inset(6.67% 3% 12.33% 0%);" vertex="1" parent="In_sAYGapWYc9GY5EZdo-80">
+          <mxGeometry x="200" y="50.00000000000003" width="34.92" height="29.16" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=2;entryX=0.46;entryY=0.008;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="In_sAYGapWYc9GY5EZdo-32" target="In_sAYGapWYc9GY5EZdo-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="470" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="270" />
+              <mxPoint x="390" y="510" />
+              <mxPoint x="529" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-66" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;3&lt;/font&gt;&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-61">
+          <mxGeometry x="-0.2941" y="-2" relative="1" as="geometry">
+            <mxPoint x="2" y="78" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-94" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.008;entryY=0.613;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="In_sAYGapWYc9GY5EZdo-2" target="In_sAYGapWYc9GY5EZdo-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="In_sAYGapWYc9GY5EZdo-95" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;4&lt;/b&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="In_sAYGapWYc9GY5EZdo-94">
+          <mxGeometry x="-0.1285" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
