@@ -24,3 +24,12 @@ contracts/cache_*/
 # OS
 .DS_Store
 Thumbs.db
+node_modules
+.DS_STORE
+/target*
+out/
+snapshots/
+out.json
+.idea
+.vscode
+cache/

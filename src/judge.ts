@@ -66,7 +66,7 @@ class Aggregator {
     }
 
     private loadECDSAKey(): void {
-        const ecdsaKeyPassword = process.env.AGGREGATOR_ECDSA_KEY_PASSWORD && '';
+        const ecdsaKeyPassword = process.env.AGGREGATOR_ECDSA_KEY_PASSWORD || '';
         if (!ecdsaKeyPassword) {
             logger.warn("AGGREGATOR_ECDSA_KEY_PASSWORD not set. using empty string.");
             //     throw new Error("AGGREGATOR_ECDSA_KEY_PASSWORD environment variable is required");
