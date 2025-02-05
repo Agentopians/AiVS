@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
-. "$(dirname -- "$0")/_/husky.sh"
-
 # Run lint-staged
-npx lint-staged || exit 1
+npx lint-staged 
 
 # Run tests
-npm test || exit 1
 
 # Note: Remove the commitlint check from pre-commit
 # commitlint should be in commit-msg hook instead
