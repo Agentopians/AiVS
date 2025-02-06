@@ -8,6 +8,7 @@ interface IAiAgentTaskManager {
     event NewTaskCreated(uint32 indexed taskIndex, Task task);
 
     event TaskResponded(
+        uint32 indexed taskIndex,
         TaskResponse taskResponse,
         TaskResponseMetadata taskResponseMetadata
     );
