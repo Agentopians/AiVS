@@ -26,6 +26,7 @@ interface IAiAgentTaskManager {
 
     // STRUCTS
     struct Task {
+        // metadataUrl will include the link to a JSON file that contains the task/case metadata
         string metadataUrl;
         uint32 taskCreatedBlock;
         // task submitter decides on the criteria for a task to be completed
@@ -43,8 +44,10 @@ interface IAiAgentTaskManager {
     struct TaskResponse {
         // Can be obtained by the operator from the event NewTaskCreated.
         uint32 referenceTaskIndex;
-        // This is just the response that the operator has to compute by itself.
-        string aiAgentMetadataUrl;
+        // This is a boolean value indicating if the case is valid or not valid based on the AI agent analysis
+        bool isValid;
+        // This will have the URL to a JSON file that includes the AI agent analysis of the case
+        string taskResponseMetadataUrl;
     }
 
     // Extra information related to taskResponse, which is filled inside the contract.
@@ -67,6 +70,7 @@ interface IAiAgentTaskManager {
     function taskNumber() external view returns (uint32);
 
     // // NOTE: this function raises challenge to existing tasks.
+    // TODO: this function is not fully compatible with the AiAgent case as of now
     function raiseAndResolveChallenge(
         Task calldata task,
         TaskResponse calldata taskResponse,
