@@ -80,6 +80,7 @@ contract AiAgentTaskManager is
 
     /* FUNCTIONS */
     // NOTE: this function creates new task, assigns it a taskId
+    // TODO: make this payable when we have the CDP setup properly for the user/Intake Clerk
     function createNewTask(
         string calldata metadataUrl,
         uint32 quorumThresholdPercentage,
@@ -163,7 +164,7 @@ contract AiAgentTaskManager is
         );
 
         // emitting event
-        emit TaskResponded(taskResponse, taskResponseMetadata);
+        emit TaskResponded(taskResponse.referenceTaskIndex, taskResponse, taskResponseMetadata);
     }
 
     function taskNumber() external view returns (uint32) {
@@ -204,7 +205,7 @@ contract AiAgentTaskManager is
         );
 
         // logic for checking whether challenge is valid or not
-        // TODO: metadata cannot be validated here as is now, figure out a way to validate?
+        // TODO: metadata cannot be validated here as is now given the JSON format and social layer context
         // uint256 actualSquaredOutput = numberToBeSquared * numberToBeSquared;
         // bool isResponseCorrect = (actualSquaredOutput ==
         //     taskResponse.numberSquared);
@@ -229,7 +230,7 @@ contract AiAgentTaskManager is
         // when the aggregator responded to the task
         // currently inlined, as the MiddlewareUtils.computeSignatoryRecordHash function was removed from BLSSignatureChecker
         // in this PR: https://github.com/Layr-Labs/eigenlayer-contracts/commit/c836178bf57adaedff37262dff1def18310f3dce#diff-8ab29af002b60fc80e3d6564e37419017c804ae4e788f4c5ff468ce2249b4386L155-L158
-        // TODO(samlaf): contracts team will add this function back in the BLSSignatureChecker, which we should use to prevent potential bugs from code duplication
+        // contracts team will add this function back in the BLSSignatureChecker, which we should use to prevent potential bugs from code duplication
         bytes32 signatoryRecordHash = keccak256(
             abi.encodePacked(
                 task.taskCreatedBlock,

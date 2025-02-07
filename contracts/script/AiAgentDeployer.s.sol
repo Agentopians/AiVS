@@ -35,7 +35,7 @@ import "forge-std/console.sol";
 contract AiAgentDeployer is Script, Utils {
     // DEPLOYMENT CONSTANTS
     uint256 public constant QUORUM_THRESHOLD_PERCENTAGE = 100;
-    uint32 public constant TASK_RESPONSE_WINDOW_BLOCK = 30;
+    uint32 public constant TASK_RESPONSE_WINDOW_BLOCK = 300;
     uint32 public constant TASK_DURATION_BLOCKS = 0;
     // TODO: right now hardcoding these (this address is anvil's default address 9)
     address public constant AGGREGATOR_ADDR =
@@ -43,12 +43,12 @@ contract AiAgentDeployer is Script, Utils {
     address public constant TASK_GENERATOR_ADDR =
         0xa0Ee7A142d267C1f36714E4a8F75612F20a79720;
 
-    // ERC20 and Strategy: we need to deploy this erc20, create a strategy for it, and whitelist this strategy in the strategymanager
+    // ERC20 and Strategy: we need to deploy this erc20, create a strategy for it, and whitelist this strategy in the strategy manager
 
     ERC20Mock public erc20Mock;
     StrategyBaseTVLLimits public erc20MockStrategy;
 
-    // Credible Squaring contracts
+    // AiAgent AVS contracts
     ProxyAdmin public AiAgentProxyAdmin;
     PauserRegistry public aiAgentPauserReg;
 
@@ -449,6 +449,6 @@ contract AiAgentDeployer is Script, Utils {
             deployed_addresses_output
         );
 
-        writeOutput(finalJson, "credible_squaring_avs_deployment_output");
+        writeOutput(finalJson, "AiAgent_avs_deployment_output");
     }
 }
