@@ -2,7 +2,7 @@
   "accounts": {
     "0x0000000000000000000000000000000000000000": {
       "nonce": 0,
-      "balance": "0x0",
+      "balance": "0x1aaa59e",
       "code": "0x",
       "storage": {}
     },
@@ -227,7 +227,7 @@
     },
     "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266": {
       "nonce": 26,
-      "balance": "0x21e1993a279b12a6826",
+      "balance": "0x21e19a734a656e6d5a0",
       "code": "0x",
       "storage": {}
     }
