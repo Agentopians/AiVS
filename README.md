@@ -106,6 +106,13 @@ Ultimately, this system aspires to empower individuals with a fair hearing of th
 - Enable the user to pay for the case registry (System fee + gas) using CDP
 - Voice-enabled Intake Clerk
 
+- Better Jury decision algorithm (R&D)
+
+  - IsCase boolean aggregation on chain?
+  - A unbiased Judge ai-agent oracle?
+
+- (R&D) How to verify, challenge the decisions on chain?
+
 ---
 
 # Usage

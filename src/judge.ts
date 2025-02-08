@@ -18,7 +18,7 @@ import { AsyncQueue } from './eigensdk/services/bls-aggregation/async-queue.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import 'dotenv/config';
-const QUORUM_THRESHOLD_PERCENTAGE = 6000;
+const QUORUM_THRESHOLD_PERCENTAGE = 100;
 
 // Create __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -166,7 +166,7 @@ class Aggregator {
 
     public async sendNewTask(i: number): Promise<number> {
         const tx = this.taskManager.methods.createNewTask(
-            "https://www.google.com",
+            "https://bafybeidu66vj2me6hk4sxxjx3yhyhscrjavmjuo3qzjuislvfkurcj6b2i.ipfs.dweb.link/b9411af07f154a6fef543e7e442e4da9.json",
             QUORUM_THRESHOLD_PERCENTAGE,
             chainioUtils.numsToBytes([0]),
         ).send({
