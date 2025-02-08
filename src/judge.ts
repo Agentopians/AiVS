@@ -244,7 +244,6 @@ class Aggregator {
                 console.log("Sending task response with data:");
                 console.log("Task:", task);
                 console.log("TaskResponse:", taskResponse);
-                console.log("NonSignersStakesAndSignature:", nonSignersStakesAndSignature);
 
                 const tx = await this.taskManager.methods.respondToTask(
                     task,

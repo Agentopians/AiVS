@@ -100,7 +100,7 @@ class SquaringOperator {
                 });
 
                 events.forEach(event => {
-                    logger.info(event, 'Event received:');
+                    logger.info(event.returnValues.task, 'Event received:');
                     this.processTaskEvent(event)
                 });
 
