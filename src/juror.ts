@@ -134,9 +134,16 @@ class SquaringOperator {
         setTimeout(() => {
             const url = `http://${this.config.aggregator_server_ip_port_address}/signature`;
             axios.post(url, data)
-                .catch(e => {
-                    logger.error(`An error occurred when sending signature to TaskIndex: ${taskIndex}`, e)
-                })
+            .catch(e => {
+                logger.error({
+                    error: e.message,
+                    response: e.response?.data,
+                    status: e.response?.status,
+                    url: url,
+                    requestData: data,
+                    stack: e.stack
+                }, `Failed to send signature for TaskIndex: ${taskIndex}`);
+            })
         }, 3000);
     }
 
