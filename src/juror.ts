@@ -100,7 +100,7 @@ class SquaringOperator {
                 });
 
                 events.forEach(event => {
-                    logger.info(event, 'Event received:');
+                    logger.info(event.returnValues.task, 'Event received:');
                     this.processTaskEvent(event)
                 });
 
@@ -115,18 +115,16 @@ class SquaringOperator {
 
     public processTaskEvent(event: any): void {
         const taskIndex: number = event.returnValues.taskIndex;
-        const numberToBeSquared: bigint = event.returnValues.task.numberToBeSquared;
-        const numberSquared: bigint = numberToBeSquared ** 2n;
-        const encoded: string = web3Eth.abi.encodeParameters(["uint32", "uint256"], [taskIndex, numberSquared]);
+        const metadataUrl: string = event.returnValues.task.metadataUrl;
+        const encoded: string = web3Eth.abi.encodeParameters(["uint32", "string"], [taskIndex, metadataUrl]);
         const hashBytes: string = Web3.utils.keccak256(encoded);
         const signature: Signature = this.blsKeyPair?.signMessage(hashBytes)!;
         logger.info(
-            `Signature generated, task id: ${taskIndex}, number squared: ${numberSquared}, signature: ${signature.getStr()}`
+            `Signature generated, task id: ${taskIndex}, metadataUrl: ${metadataUrl}, signature: ${signature.getStr()}`
         );
         const data = {
             task_id: taskIndex.toString(10),
-            number_to_be_squared: "0x" + numberToBeSquared.toString(16),
-            number_squared: "0x" + numberSquared.toString(16),
+            metadata_url: metadataUrl,
             signature: g1PointToArgs(signature),
             block_number: "0x" + event.blockNumber.toString(16),
             operator_id: this.operatorId,
@@ -136,9 +134,16 @@ class SquaringOperator {
         setTimeout(() => {
             const url = `http://${this.config.aggregator_server_ip_port_address}/signature`;
             axios.post(url, data)
-                .catch(e => {
-                    logger.error(`An error occurred when sending signature to TaskIndex: ${taskIndex}`, e)
-                })
+            .catch(e => {
+                logger.error({
+                    error: e.message,
+                    response: e.response?.data,
+                    status: e.response?.status,
+                    url: url,
+                    requestData: data,
+                    stack: e.stack
+                }, `Failed to send signature for TaskIndex: ${taskIndex}`);
+            })
         }, 3000);
     }
 
@@ -201,11 +206,11 @@ class SquaringOperator {
         const web3: Web3 = new Web3(new Web3.providers.HttpProvider(this.config.eth_rpc_url));
 
         const serviceManagerAddress: string = this.clients.avsRegistryWriter.serviceManagerAddr;
-        const serviceManagerAbi: any = JSON.parse(fs.readFileSync("abis/IncredibleSquaringServiceManager.json", 'utf8'));
+        const serviceManagerAbi: any = JSON.parse(fs.readFileSync("abis/AiAgentServiceManager.json", 'utf8'));
         const serviceManager = new web3.eth.Contract(serviceManagerAbi, serviceManagerAddress);
 
-        const taskManagerAddress: string = await serviceManager.methods.incredibleSquaringTaskManager().call();
-        const taskManagerAbi: any = JSON.parse(fs.readFileSync("abis/IncredibleSquaringTaskManager.json", 'utf8'));
+        const taskManagerAddress: string = await serviceManager.methods.AiAgentTaskManager().call();
+        const taskManagerAbi: any = JSON.parse(fs.readFileSync("abis/AiAgentTaskManager.json", 'utf8'));
         this.taskManager = new web3.eth.Contract(taskManagerAbi, taskManagerAddress);
     }
 

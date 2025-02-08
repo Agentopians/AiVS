@@ -18,6 +18,7 @@ import { AsyncQueue } from './eigensdk/services/bls-aggregation/async-queue.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import 'dotenv/config';
+const QUORUM_THRESHOLD_PERCENTAGE = 6000;
 
 // Create __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -98,7 +99,7 @@ class Aggregator {
             this.config.eth_rpc_url,
             this.config.avs_registry_coordinator_address,
             this.config.operator_state_retriever_address,
-            "incredible-squaring",
+            "ai-agent",
             this.config.eigen_metrics_ip_port_address
         );
         this.clients = await buildAll(cfg, this.aggregatorECDSAPrivateKey, logger);
@@ -106,10 +107,10 @@ class Aggregator {
 
     private async loadTaskManager(): Promise<void> {
         const serviceManagerAddress = this.clients.avsRegistryWriter.serviceManagerAddr;
-        const serviceManagerABI = fs.readFileSync("abis/IncredibleSquaringServiceManager.json", "utf-8");
+        const serviceManagerABI = fs.readFileSync("abis/AiAgentServiceManager.json", "utf-8");
         const serviceManager = new this.web3.eth.Contract(JSON.parse(serviceManagerABI), serviceManagerAddress);
-        const taskManagerAddress: string = await serviceManager.methods.incredibleSquaringTaskManager().call();
-        const taskManagerABI = fs.readFileSync("abis/IncredibleSquaringTaskManager.json", "utf-8");
+        const taskManagerAddress: string = await serviceManager.methods.AiAgentTaskManager().call();
+        const taskManagerABI = fs.readFileSync("abis/AiAgentTaskManager.json", "utf-8");
         this.taskManagerABI = JSON.parse(taskManagerABI) as AbiItem[];
         this.taskManager = new this.web3.eth.Contract(this.taskManagerABI, taskManagerAddress);
     }
@@ -127,7 +128,7 @@ class Aggregator {
         );
 
         const hasher = (task: any) => {
-            const encoded = Web3Eth.abi.encodeParameters(["uint32", "uint256"], [task.taskIndex, task.numberSquared]);
+            const encoded = Web3Eth.abi.encodeParameters(["uint32", "string"], [task.taskIndex, task.metadataUrl]);
             return Web3.utils.keccak256(encoded);
         };
 
@@ -140,8 +141,7 @@ class Aggregator {
         const taskIndex = data.task_id;
         const taskResponse = {
             taskIndex,
-            numberSquared: data.number_squared,
-            numberToBeSquared: data.number_to_be_squared,
+            metadataUrl: data.metadata_url,
             blockNumber: data.block_number
         };
 
@@ -166,7 +166,9 @@ class Aggregator {
 
     public async sendNewTask(i: number): Promise<number> {
         const tx = this.taskManager.methods.createNewTask(
-            i, 100, chainioUtils.numsToBytes([0])
+            "https://www.google.com",
+            QUORUM_THRESHOLD_PERCENTAGE,
+            chainioUtils.numsToBytes([0]),
         ).send({
             from: this.aggregatorAddress,
             gas: 2000000,
@@ -214,15 +216,18 @@ class Aggregator {
             }, `Task response aggregated.`);
             const response = aggregatedResponse.taskResponse;
 
+            // Create task and response objects according to the new format
             const task = [
-                response.numberToBeSquared,
+                response.metadataUrl,
                 response.blockNumber,
                 chainioUtils.numsToBytes([0]),
-                100,
+                QUORUM_THRESHOLD_PERCENTAGE
             ];
+
             const taskResponse = [
                 response.taskIndex,
-                response.numberSquared
+                true, // This should be determined by AI analysis
+                response.metadataUrl
             ];
             const nonSignersStakesAndSignature = [
                 aggregatedResponse.nonSignerQuorumBitmapIndices,
@@ -235,21 +240,31 @@ class Aggregator {
                 aggregatedResponse.nonSignerStakeIndices,
             ];
 
-            const tx = this.taskManager.methods.respondToTask(
-                task, taskResponse, nonSignersStakesAndSignature
-            ).send({
-                from: this.aggregatorAddress,
-                gas: 2000000,
-                gasPrice: this.web3.utils.toWei('20', 'gwei'),
-                nonce: await this.web3.eth.getTransactionCount(this.aggregatorAddress),
-                chainId: await this.web3.eth.net.getId()
-            });
+            try {
+                console.log("Sending task response with data:");
+                console.log("Task:", task);
+                console.log("TaskResponse:", taskResponse);
 
-            const receipt = await tx;
-            logger.info({
-                taskIndex: response.taskIndex,
-                txHash: receipt.transactionHash
-            }, "Task response registered onchain.")
+                const tx = await this.taskManager.methods.respondToTask(
+                    task,
+                    taskResponse,
+                    nonSignersStakesAndSignature
+                ).send({
+                    from: this.aggregatorAddress,
+                    gas: 2000000,
+                    gasPrice: this.web3.utils.toWei('20', 'gwei'),
+                    nonce: await this.web3.eth.getTransactionCount(this.aggregatorAddress),
+                    chainId: await this.web3.eth.net.getId()
+                });
+
+                logger.info({
+                    taskIndex: response.taskIndex,
+                    txHash: tx.transactionHash
+                }, "Task response registered onchain.");
+            } catch (error) {
+                console.log(error)
+                logger.error("Error submitting task response:", error);
+            }
         }
     }
 }

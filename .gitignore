@@ -7,9 +7,6 @@ coverage.json
 
 # Foundry/Contracts
 contracts/out/
-contracts/cache/
-contracts/lib/
-contracts/broadcast/
 contracts/cache_*/
 
 # Debug files
