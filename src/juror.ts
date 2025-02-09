@@ -117,7 +117,7 @@ class SquaringOperator {
                 logger.error(error, 'Error polling for events:');
             }
 
-            await timeout(10000); // 10 seconds
+            await timeout(5000); // 10 seconds
         }
     }
 
@@ -127,11 +127,12 @@ class SquaringOperator {
         const metadata = await this.ipfsService.downloadJson(metadataUrl);
         const isLegalCase = await this.gaiaService.validateLegalCase(metadata);
         const isLegalCaseUri = await this.ipfsService.uploadJson(isLegalCase);
-        logger.info(`Is legal case: ${isLegalCase.toString()}`);
+        logger.info(`Is Legal Case: ${JSON.stringify(isLegalCase)}`);
         const encoded = web3Eth.abi.encodeParameters(
             ['uint32', 'bool'],
             [taskIndex, isLegalCase.isValidCase]
         );
+        
         const hashBytes: string = Web3.utils.keccak256(encoded);
         const signature: Signature = this.blsKeyPair?.signMessage(hashBytes)!;
         logger.info(

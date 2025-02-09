@@ -206,7 +206,7 @@ class Aggregator {
         });
     }
 
-    public async sendNewTask(i: number): Promise<number> {
+    public async sendNewTask(): Promise<number> {
         const task = [
             "ipfs://QmRQaZScq3AfrDtPsDe5NbEH37sXxtgKstBvAfKCyeHXEp/0",
             QUORUM_THRESHOLD_PERCENTAGE,
@@ -234,7 +234,7 @@ class Aggregator {
             [QUORUM_THRESHOLD_PERCENTAGE],
             60000
         );
-        console.log(taskInfo)
+        // console.log("taskInfo", taskInfo)
         return taskIndex;
     }
 
@@ -243,10 +243,10 @@ class Aggregator {
         while (true) {
             logger.info('Sending new task');
 
-            await this.sendNewTask(i);
+            await this.sendNewTask();
             i += 1;
 
-            await timeout(10000)
+            await timeout(20000)
         }
     }
 
@@ -285,11 +285,11 @@ class Aggregator {
                 ];
 
                 // Log the formatted data
-                logger.info({
-                    formattedTask: task,
-                    formattedTaskResponse: taskResponse,
-                    formattedNonSignersStakesAndSignature: nonSignersStakesAndSignature
-                }, "Formatted data for contract call");
+                // logger.info({
+                //     formattedTask: task,
+                //     formattedTaskResponse: taskResponse,
+                //     formattedNonSignersStakesAndSignature: nonSignersStakesAndSignature
+                // }, "Formatted data for contract call");
 
                 // Try to estimate gas first
                 // try {
