@@ -50,7 +50,6 @@ class Aggregator {
     private blsAggregationService: BlsAggregationService;
     // @ts-ignore
     private app: express.Application;
-
     constructor(config: any) {
         this.config = config;
     }
@@ -115,6 +114,48 @@ class Aggregator {
         this.taskManager = new this.web3.eth.Contract(this.taskManagerABI, taskManagerAddress);
     }
 
+
+    private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
+        try {
+            const [
+                nonSignerQuorumBitmapIndices,
+                nonSignersPubKeysG1,
+                quorumApksG1,
+                signersApkG2,
+                signersAggSigG1,
+                quorumApkIndices,
+                totalStakeIndices,
+                nonSignerStakeIndices
+            ] = nonSignersStakesAndSignature;
+
+            // Basic structure validation
+            if (!Array.isArray(quorumApksG1) || !Array.isArray(signersApkG2) || !Array.isArray(signersAggSigG1)) {
+                logger.error("Invalid BLS signature data structure");
+                return false;
+            }
+
+            // Validate each component
+            if (quorumApksG1.some(arr => !Array.isArray(arr) || arr.length !== 2)) {
+                logger.error("Invalid quorumApksG1 format");
+                return false;
+            }
+
+            if (!Array.isArray(signersApkG2) || signersApkG2.length !== 2) {
+                logger.error("Invalid signersApkG2 format");
+                return false;
+            }
+
+            if (!Array.isArray(signersAggSigG1) || signersAggSigG1.length !== 2) {
+                logger.error("Invalid signersAggSigG1 format");
+                return false;
+            }
+
+            return true;
+        } catch (error) {
+            logger.error({ error }, "Error validating BLS signature data");
+            return false;
+        }
+    }
     private loadBlsAggregationService(): void {
         const operatorInfoService = new OperatorsInfoServiceInMemory(
             this.clients.avsRegistryReader,
@@ -137,11 +178,13 @@ class Aggregator {
 
     public async submitSignature(req: Request, res: Response): Promise<void> {
         const data = req.body;
+        console.log('submitSignature data', data);
         const signature = new Signature(BigInt(data.signature.X), BigInt(data.signature.Y));
         const taskIndex = data.task_id;
         const taskResponse = {
             taskIndex,
             metadataUrl: data.metadata_url,
+            isLegalCase: data.is_legal_case,
             blockNumber: data.block_number
         };
 
@@ -151,7 +194,6 @@ class Aggregator {
             );
             res.status(200).send('true');
         } catch (e) {
-            // console.log(e)
             logger.error(e, `Submitting signature failed: ${e}`);
             res.status(500).send('false');
         }
@@ -165,10 +207,13 @@ class Aggregator {
     }
 
     public async sendNewTask(i: number): Promise<number> {
-        const tx = this.taskManager.methods.createNewTask(
-            "https://bafybeidu66vj2me6hk4sxxjx3yhyhscrjavmjuo3qzjuislvfkurcj6b2i.ipfs.dweb.link/b9411af07f154a6fef543e7e442e4da9.json",
+        const task = [
+            "ipfs://QmRQaZScq3AfrDtPsDe5NbEH37sXxtgKstBvAfKCyeHXEp/0",
             QUORUM_THRESHOLD_PERCENTAGE,
             chainioUtils.numsToBytes([0]),
+        ]
+        const tx = this.taskManager.methods.createNewTask(
+            task[0], task[1], task[2]
         ).send({
             from: this.aggregatorAddress,
             gas: 2000000,
@@ -186,9 +231,10 @@ class Aggregator {
             taskIndex,
             receipt.blockNumber,
             [0],
-            [100],
+            [QUORUM_THRESHOLD_PERCENTAGE],
             60000
         );
+        console.log(taskInfo)
         return taskIndex;
     }
 
@@ -209,65 +255,103 @@ class Aggregator {
 
         for await (const _aggResponse of aggregatedResponseChannel) {
             const aggregatedResponse: BlsAggregationServiceResponse = _aggResponse;
-
-            logger.info({
-                taskIndex: aggregatedResponse.taskIndex,
-                taskResponse: aggregatedResponse.taskResponse,
-            }, `Task response aggregated.`);
             const response = aggregatedResponse.taskResponse;
 
-            // Create task and response objects according to the new format
-            const task = [
-                response.metadataUrl,
-                response.blockNumber,
-                chainioUtils.numsToBytes([0]),
-                QUORUM_THRESHOLD_PERCENTAGE
-            ];
-
-            const taskResponse = [
-                response.taskIndex,
-                true, // This should be determined by AI analysis
-                response.metadataUrl
-            ];
-            const nonSignersStakesAndSignature = [
-                aggregatedResponse.nonSignerQuorumBitmapIndices,
-                aggregatedResponse.nonSignersPubKeysG1.map(g1ToTuple),
-                aggregatedResponse.quorumApksG1.map(g1ToTuple),
-                g2ToTuple(aggregatedResponse.signersApkG2),
-                g1ToTuple(aggregatedResponse.signersAggSigG1),
-                aggregatedResponse.quorumApkIndices,
-                aggregatedResponse.totalStakeIndices,
-                aggregatedResponse.nonSignerStakeIndices,
-            ];
-
             try {
-                console.log("Sending task response with data:");
-                console.log("Task:", task);
-                console.log("TaskResponse:", taskResponse);
+                // Format task data
+                const task = [
+                    response.metadataUrl,
+                    response.blockNumber,
+                    chainioUtils.numsToBytes([0]),
+                    QUORUM_THRESHOLD_PERCENTAGE
+                ];
+
+                const taskResponse = [
+                    response.taskIndex,
+                    response.isLegalCase,
+                    response.metadataUrl
+                ];
+
+                // Convert big numbers to proper format
+                const nonSignersStakesAndSignature = [
+                    aggregatedResponse.nonSignerQuorumBitmapIndices,
+                    aggregatedResponse.nonSignersPubKeysG1.map(g1ToTuple),
+                    aggregatedResponse.quorumApksG1.map(g1ToTuple),
+                    g2ToTuple(aggregatedResponse.signersApkG2),
+                    g1ToTuple(aggregatedResponse.signersAggSigG1),
+                    aggregatedResponse.quorumApkIndices,
+                    aggregatedResponse.totalStakeIndices,
+                    aggregatedResponse.nonSignerStakeIndices,
+                ];
+
+                // Log the formatted data
+                logger.info({
+                    formattedTask: task,
+                    formattedTaskResponse: taskResponse,
+                    formattedNonSignersStakesAndSignature: nonSignersStakesAndSignature
+                }, "Formatted data for contract call");
+
+                // Try to estimate gas first
+                // try {
+                //     const gasEstimate = await this.taskManager.methods.respondToTask(
+                //         task,
+                //         taskResponse,
+                //         nonSignersStakesAndSignature
+                //     ).estimateGas({ from: this.aggregatorAddress });
+                //     logger.info({ gasEstimate }, "Gas estimation successful");
+                // } catch (estimateError) {
+                //     logger.error({
+                //         error: estimateError.message,
+                //         data: estimateError.data
+                //     }, "Gas estimation failed - likely contract revert");
+                //     continue; // Skip this iteration if gas estimation fails
+                // }
+                if (!this.validateBlsSignatureData(nonSignersStakesAndSignature)) {
+                    logger.error("Invalid BLS signature data, skipping transaction");
+                    continue;
+                }
+                const txParams = {
+                    from: this.aggregatorAddress,
+                    gas: 2000000,
+                    gasPrice: await this.web3.eth.getGasPrice(),
+                    nonce: await this.web3.eth.getTransactionCount(this.aggregatorAddress),
+                    chainId: await this.web3.eth.net.getId()
+                };
 
                 const tx = await this.taskManager.methods.respondToTask(
                     task,
                     taskResponse,
                     nonSignersStakesAndSignature
-                ).send({
-                    from: this.aggregatorAddress,
-                    gas: 2000000,
-                    gasPrice: this.web3.utils.toWei('20', 'gwei'),
-                    nonce: await this.web3.eth.getTransactionCount(this.aggregatorAddress),
-                    chainId: await this.web3.eth.net.getId()
-                });
+                ).send(txParams);
 
                 logger.info({
                     taskIndex: response.taskIndex,
-                    txHash: tx.transactionHash
-                }, "Task response registered onchain.");
+                    txHash: tx.transactionHash,
+                }, "Task response registered onchain");
+
             } catch (error) {
-                console.log(error)
-                logger.error("Error submitting task response:", error);
+                logger.error({
+                    error: error.message,
+                    errorName: error.name,
+                    stack: error.stack,
+                    code: error.code,
+                    data: error.data
+                }, "Error submitting task response");
+
+                // Try to decode the error if possible
+                if (error.data) {
+                    try {
+                        const decodedError = this.web3.eth.abi.decodeParameter('string', error.data);
+                        logger.error({ decodedError }, "Decoded contract error");
+                    } catch (decodeError) {
+                        // Ignore decode error
+                    }
+                }
             }
         }
     }
 }
+
 
 async function main() {
     try {
