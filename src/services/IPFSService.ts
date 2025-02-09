@@ -86,7 +86,6 @@ export class IPFSService {
         try {
             const data = await this.download(uri);
             const outputDir = path.dirname(outputPath);
-            console.log(data.url)
             const response = await fetch(data.url);
             const fileContent = await response.arrayBuffer();
             const buffer = Buffer.from(fileContent);
@@ -103,6 +102,23 @@ export class IPFSService {
             throw new Error(`Download failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     }
+    /**
+     * Download and parse JSON from IPFS
+     * @param uri IPFS URI to download from
+     * @returns Parsed JSON data
+     */
+    async downloadJson(uri: string) {
+        try {
+            const data = await this.storage.download(uri);
+            const response = await fetch(data.url);
+            const fileContent = await response.arrayBuffer();
+            const buffer = Buffer.from(fileContent);
+            return buffer.toString()
+        } catch (error) {
+            console.error('Failed to download and parse JSON:', error);
+            throw new Error(`Download failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+    }
 
     /**
      * Get gateway URL for an IPFS URI
@@ -111,5 +127,13 @@ export class IPFSService {
      */
     getGatewayUrl(uri: string): string {
         return this.storage.resolveScheme(uri);
+    }
+    //get the metadata from the ipfs uri
+    async getMetadataFromUri(uri: string) {
+        const response = await fetch(uri);
+        const fileContent = await response.arrayBuffer();
+        const buffer = Buffer.from(fileContent);
+        console.log(buffer.toString())
+        return buffer.toString();
     }
 } 

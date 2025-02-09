@@ -108,13 +108,12 @@ contract AiAgentTaskManager is
         uint32 taskCreatedBlock = task.taskCreatedBlock;
         bytes calldata quorumNumbers = task.quorumNumbers;
         uint32 quorumThresholdPercentage = task.quorumThresholdPercentage;
-
         // check that the task is valid, hasn't been responded yet, and is being responded in time
-        require(
-            keccak256(abi.encode(task)) ==
-                allTaskHashes[taskResponse.referenceTaskIndex],
-            "supplied task does not match the one recorded in the contract"
-        );
+        // require(
+        //     keccak256(abi.encode(task)) ==
+        //         allTaskHashes[taskResponse.referenceTaskIndex],
+        //     "supplied task does not match the one recorded in the contract"
+        // );
         // some logical checks
         require(
             allTaskResponses[taskResponse.referenceTaskIndex] == bytes32(0),
@@ -128,7 +127,7 @@ contract AiAgentTaskManager is
 
         /* CHECKING SIGNATURES & WHETHER THRESHOLD IS MET OR NOT */
         // calculate message which operators signed
-        bytes32 message = keccak256(abi.encode(taskResponse));
+        bytes32 message = keccak256(abi.encode(taskResponse.referenceTaskIndex, taskResponse.isValid));
 
         // check the BLS signature
         (

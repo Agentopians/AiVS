@@ -50,7 +50,6 @@ class Aggregator {
     private blsAggregationService: BlsAggregationService;
     // @ts-ignore
     private app: express.Application;
-
     constructor(config: any) {
         this.config = config;
     }
@@ -116,47 +115,47 @@ class Aggregator {
     }
 
 
-private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
-    try {
-        const [
-            nonSignerQuorumBitmapIndices,
-            nonSignersPubKeysG1,
-            quorumApksG1,
-            signersApkG2,
-            signersAggSigG1,
-            quorumApkIndices,
-            totalStakeIndices,
-            nonSignerStakeIndices
-        ] = nonSignersStakesAndSignature;
+    private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
+        try {
+            const [
+                nonSignerQuorumBitmapIndices,
+                nonSignersPubKeysG1,
+                quorumApksG1,
+                signersApkG2,
+                signersAggSigG1,
+                quorumApkIndices,
+                totalStakeIndices,
+                nonSignerStakeIndices
+            ] = nonSignersStakesAndSignature;
 
-        // Basic structure validation
-        if (!Array.isArray(quorumApksG1) || !Array.isArray(signersApkG2) || !Array.isArray(signersAggSigG1)) {
-            logger.error("Invalid BLS signature data structure");
+            // Basic structure validation
+            if (!Array.isArray(quorumApksG1) || !Array.isArray(signersApkG2) || !Array.isArray(signersAggSigG1)) {
+                logger.error("Invalid BLS signature data structure");
+                return false;
+            }
+
+            // Validate each component
+            if (quorumApksG1.some(arr => !Array.isArray(arr) || arr.length !== 2)) {
+                logger.error("Invalid quorumApksG1 format");
+                return false;
+            }
+
+            if (!Array.isArray(signersApkG2) || signersApkG2.length !== 2) {
+                logger.error("Invalid signersApkG2 format");
+                return false;
+            }
+
+            if (!Array.isArray(signersAggSigG1) || signersAggSigG1.length !== 2) {
+                logger.error("Invalid signersAggSigG1 format");
+                return false;
+            }
+
+            return true;
+        } catch (error) {
+            logger.error({ error }, "Error validating BLS signature data");
             return false;
         }
-
-        // Validate each component
-        if (quorumApksG1.some(arr => !Array.isArray(arr) || arr.length !== 2)) {
-            logger.error("Invalid quorumApksG1 format");
-            return false;
-        }
-
-        if (!Array.isArray(signersApkG2) || signersApkG2.length !== 2) {
-            logger.error("Invalid signersApkG2 format");
-            return false;
-        }
-
-        if (!Array.isArray(signersAggSigG1) || signersAggSigG1.length !== 2) {
-            logger.error("Invalid signersAggSigG1 format");
-            return false;
-        }
-
-        return true;
-    } catch (error) {
-        logger.error({ error }, "Error validating BLS signature data");
-        return false;
     }
-}
     private loadBlsAggregationService(): void {
         const operatorInfoService = new OperatorsInfoServiceInMemory(
             this.clients.avsRegistryReader,
@@ -185,6 +184,7 @@ private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
         const taskResponse = {
             taskIndex,
             metadataUrl: data.metadata_url,
+            isLegalCase: data.is_legal_case,
             blockNumber: data.block_number
         };
 
@@ -194,7 +194,6 @@ private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
             );
             res.status(200).send('true');
         } catch (e) {
-            // console.log(e)
             logger.error(e, `Submitting signature failed: ${e}`);
             res.status(500).send('false');
         }
@@ -208,10 +207,13 @@ private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
     }
 
     public async sendNewTask(i: number): Promise<number> {
-        const tx = this.taskManager.methods.createNewTask(
-            "https://www.google.com",
+        const task = [
+            "ipfs://QmRQaZScq3AfrDtPsDe5NbEH37sXxtgKstBvAfKCyeHXEp/0",
             QUORUM_THRESHOLD_PERCENTAGE,
             chainioUtils.numsToBytes([0]),
+        ]
+        const tx = this.taskManager.methods.createNewTask(
+            task[0], task[1], task[2]
         ).send({
             from: this.aggregatorAddress,
             gas: 2000000,
@@ -229,9 +231,10 @@ private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
             taskIndex,
             receipt.blockNumber,
             [0],
-            [100],
+            [QUORUM_THRESHOLD_PERCENTAGE],
             60000
         );
+        console.log(taskInfo)
         return taskIndex;
     }
 
@@ -265,30 +268,17 @@ private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
 
                 const taskResponse = [
                     response.taskIndex,
-                    true,
+                    response.isLegalCase,
                     response.metadataUrl
                 ];
 
                 // Convert big numbers to proper format
-                const formatBigNumbers = (arr: any[]) => {
-                    return arr.map(item => {
-                        if (Array.isArray(item)) {
-                            return formatBigNumbers(item);
-                        }
-                        // If it's a scientific notation number or very large number
-                        if (typeof item === 'number' || /e\+/.test(String(item))) {
-                            return this.web3.utils.toBN(item).toString();
-                        }
-                        return item;
-                    });
-                };
-                
                 const nonSignersStakesAndSignature = [
                     aggregatedResponse.nonSignerQuorumBitmapIndices,
                     aggregatedResponse.nonSignersPubKeysG1.map(g1ToTuple),
-                    formatBigNumbers(aggregatedResponse.quorumApksG1.map(g1ToTuple)),
-                    formatBigNumbers(g2ToTuple(aggregatedResponse.signersApkG2)),
-                    formatBigNumbers(g1ToTuple(aggregatedResponse.signersAggSigG1)),
+                    aggregatedResponse.quorumApksG1.map(g1ToTuple),
+                    g2ToTuple(aggregatedResponse.signersApkG2),
+                    g1ToTuple(aggregatedResponse.signersAggSigG1),
                     aggregatedResponse.quorumApkIndices,
                     aggregatedResponse.totalStakeIndices,
                     aggregatedResponse.nonSignerStakeIndices,
@@ -302,21 +292,20 @@ private validateBlsSignatureData(nonSignersStakesAndSignature: any[]): boolean {
                 }, "Formatted data for contract call");
 
                 // Try to estimate gas first
-                try {
-                    const gasEstimate = await this.taskManager.methods.respondToTask(
-                        task,
-                        taskResponse,
-                        nonSignersStakesAndSignature
-                    ).estimateGas({ from: this.aggregatorAddress });
-                    
-                    logger.info({ gasEstimate }, "Gas estimation successful");
-                } catch (estimateError) {
-                    logger.error({
-                        error: estimateError.message,
-                        data: estimateError.data
-                    }, "Gas estimation failed - likely contract revert");
-                    continue; // Skip this iteration if gas estimation fails
-                }
+                // try {
+                //     const gasEstimate = await this.taskManager.methods.respondToTask(
+                //         task,
+                //         taskResponse,
+                //         nonSignersStakesAndSignature
+                //     ).estimateGas({ from: this.aggregatorAddress });
+                //     logger.info({ gasEstimate }, "Gas estimation successful");
+                // } catch (estimateError) {
+                //     logger.error({
+                //         error: estimateError.message,
+                //         data: estimateError.data
+                //     }, "Gas estimation failed - likely contract revert");
+                //     continue; // Skip this iteration if gas estimation fails
+                // }
                 if (!this.validateBlsSignatureData(nonSignersStakesAndSignature)) {
                     logger.error("Invalid BLS signature data, skipping transaction");
                     continue;

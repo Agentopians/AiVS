@@ -14,6 +14,8 @@ import { g1PointToArgs } from './eigensdk/utils/helpers.js';
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { GaiaService } from './services/GaiaService.js';
+import { IPFSService } from './services/IPFSService.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -34,9 +36,15 @@ class SquaringOperator {
     private clients: Clients; // Adjust type based on the actual type inferred or defined
     private taskManager: any; // Adjust type based on the actual type inferred or defined
     private operatorId?: OperatorId;
-
+    private gaiaService: GaiaService;
+    private ipfsService: IPFSService;
     constructor(config: any) {
         this.config = config;
+        this.gaiaService = new GaiaService();
+        this.ipfsService = new IPFSService({
+            clientId: process.env.THIRDWEB_CLIENT_ID!,
+            secretKey: process.env.THIRDWEB_SECRET_KEY!,
+        });
     }
 
     async init() {
@@ -109,14 +117,21 @@ class SquaringOperator {
                 logger.error(error, 'Error polling for events:');
             }
 
-            await timeout(5000);
+            await timeout(10000); // 10 seconds
         }
     }
 
-    public processTaskEvent(event: any): void {
+    public async processTaskEvent(event: any): Promise<void> {
         const taskIndex: number = event.returnValues.taskIndex;
         const metadataUrl: string = event.returnValues.task.metadataUrl;
-        const encoded: string = web3Eth.abi.encodeParameters(["uint32", "string"], [taskIndex, metadataUrl]);
+        const metadata = await this.ipfsService.downloadJson(metadataUrl);
+        const isLegalCase = await this.gaiaService.validateLegalCase(metadata);
+        const isLegalCaseUri = await this.ipfsService.uploadJson(isLegalCase);
+        logger.info(`Is legal case: ${isLegalCase.toString()}`);
+        const encoded = web3Eth.abi.encodeParameters(
+            ['uint32', 'bool'],
+            [taskIndex, isLegalCase.isValidCase]
+        );
         const hashBytes: string = Web3.utils.keccak256(encoded);
         const signature: Signature = this.blsKeyPair?.signMessage(hashBytes)!;
         logger.info(
@@ -124,27 +139,26 @@ class SquaringOperator {
         );
         const data = {
             task_id: taskIndex.toString(10),
-            metadata_url: metadataUrl,
+            metadata_url: isLegalCaseUri.uri,
+            is_legal_case: isLegalCase.isValidCase,
             signature: g1PointToArgs(signature),
             block_number: "0x" + event.blockNumber.toString(16),
             operator_id: this.operatorId,
         };
         logger.info(`Submitting result for task to aggregator ${JSON.stringify(data)}`);
-        // prevent submitting task before initialize_new_task gets completed on aggregator
-        setTimeout(() => {
-            const url = `http://${this.config.aggregator_server_ip_port_address}/signature`;
-            axios.post(url, data)
-            .catch(e => {
-                logger.error({
-                    error: e.message,
-                    response: e.response?.data,
-                    status: e.response?.status,
-                    url: url,
-                    requestData: data,
-                    stack: e.stack
-                }, `Failed to send signature for TaskIndex: ${taskIndex}`);
-            })
-        }, 3000);
+        // Add debug logging to see what IP/port is being used
+        console.log('Aggregator config:', this.config.aggregator_server_ip_port_address);
+
+        // Add timeout configuration to axios
+        const axiosConfig = {
+            timeout: 5000,  // 5 second timeout
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const url = `http://${this.config.aggregator_server_ip_port_address}/signature`;
+        await axios.post(url, data, axiosConfig);
     }
 
     private async loadBlsKey(): Promise<void> {
